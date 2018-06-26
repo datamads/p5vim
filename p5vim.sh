@@ -11,17 +11,19 @@ SESSION=${SESSION:-"P5JS"}
 # More info: https://github.com/chiunhau/p5-manager/blob/master/README.md#collection
 P5DIR=${P5DIR:-"/Users/madskjeldgaard/Desktop/scripts/js/p5js/dailies"}
 
-LOCALSERVER=${LOCALSERVER:-"http://localserver:5555"}
-
-# Open the localserver in FireFox
-#open -a FireFox $LOCALSERVER 
-
 DATE=${DATE:-"$(date '+%d%m%Y')"}
 PROJECT_NAME="p5js_"$DATE
 
 cd $P5DIR
 
-p5 generate $PROJECT_NAME
+# Check if project already exists
+# If it doesn't, generate a new project
+# If it does exist, open it up
+
+if [ ! -d "$PROJECT_NAME" ]; then
+	p5 generate $PROJECT_NAME
+fi
+
 cd $PROJECT_NAME
 
 # Start TMUX session with details from above
